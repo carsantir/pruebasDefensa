@@ -1220,6 +1220,22 @@ class VotingTestCase(BaseTestCase):
 
         self.assertEqual(IntegrityError, type(raised.exception))
 
+    def test_defensa_positive(self):
+        v1 = Voting(name = 'v1', desc = 'v1')
+        v1.save()
+        v2 = Voting(name = 'v2', desc = 'v2')
+        v2.save()
+        self.assertNotEqual(v1, v2)
+
+    def test_defensa_negative(self):
+        v1 = Voting(name = 'v1', desc = 'v1')
+        v1.save()
+        v2 = Voting(name = 'v2', desc = 'v1')
+
+        with self.assertRaises(Excepcion) as raised:
+            v2.save()
+        self.assertEqual(IntegrityError, type(raised.exception))
+
     #-----------------------------------------------------------------------------------------------------------------------
     #TEST DE MODELO
 
